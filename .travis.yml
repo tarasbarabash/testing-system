@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "stable"
+branches:
+  only:
+    - master
+deploy:
+  provider: heroku
+  app: nameless-ridge-74946
+  api_key: $HEROKU_KEY
