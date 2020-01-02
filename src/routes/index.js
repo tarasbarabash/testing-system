@@ -1,15 +1,24 @@
-import homepageRouter from "./home";
 import { Router } from "express";
+import apiRouter from "./api";
+import ApiError from "../errors/ApiError";
 
 const router = Router();
-router.use(homepageRouter);
+router.use("/api", apiRouter);
 
 export const initRoutes = app => {
     app.use(router);
 
     app.use((err, req, res, next) => {
-        res.status(502).json({
-            error: err.message
-        })
+        if (err instanceof ApiError)
+            res.status(err.responseCode || 502).json({
+                error: err.message,
+                code: err.code
+            });
+        else {
+            console.error(err);
+            res.status(502).json({
+                error: "Something went wrong",
+            });
+        }
     })
 }

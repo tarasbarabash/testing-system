@@ -1,0 +1,10 @@
+{
+    "invalidInput": 1,
+    "nonuniqueMail": 2,
+    "sessionExpired": 3,
+    "mailNotFound": 4,
+    "passMailNotFound": 5,
+    "noMethod": 6,
+    "authError": 7,
+    "minQuestionsError": 8
+}

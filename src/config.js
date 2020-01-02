@@ -7,18 +7,25 @@ export const initMiddleware = (app) => {
 
 export const startApp = (app) => {
     const port = process.env.PORT || 3000;
-    app.listen(port, () => console.log(`App is running on ${port}`));
+    app.listen(port, () => console.info(`App is running on ${port}`));
 }
 
-export const initDB = () => {
-    mongoose.connect(process.env.DB_URI, {
+export const initDB = async () => {
+    let dbUri = process.env.DB_URI;
+    const isTesting = process.env.NODE_ENV === "test";
+    if (isTesting) {
+        const server = new (require("mongodb-memory-server").MongoMemoryServer)();
+        dbUri = await server.getConnectionString();
+    }
+    mongoose.connect(dbUri, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false,
         useUnifiedTopology: true
     }).then(() => {
-        console.log(`A connection to the db is established!`);
+        if (!isTesting)
+            console.info(`A connection to the db is established!`);
     }).catch(err => {
-        console.log(err);
+        console.info(err);
     });
 }

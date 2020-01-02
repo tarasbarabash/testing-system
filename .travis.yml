@@ -4,7 +4,10 @@ node_js:
 branches:
   only:
     - master
+    - dev
 deploy:
+  on: 
+    branch: master
   provider: heroku
   app: nameless-ridge-74946
   api_key: $HEROKU_KEY
