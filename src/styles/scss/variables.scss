@@ -1,0 +1,11 @@
+$colors: (dark-blue: #4568dc,
+  light-purple: #b06ab3,
+  dark-purple: #814E83,
+  white: #fff);
+
+@function getColor($name) {
+  @return map-get($colors, $name);
+}
+
+$max-width: 960px;
+$main-dimen: 16px;

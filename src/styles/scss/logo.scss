@@ -1,0 +1,24 @@
+@import "./mixins.scss";
+
+.logo {
+    font-size: 2rem;
+    display: flex;
+    font-family: "Courgette";
+    text-align: center;
+    letter-spacing: -0.15rem;
+    transform: rotate(-1.5deg);
+    @include accent(white);
+    align-self: center;
+    text-decoration: none;
+    color: black;
+
+    h2 {
+        font-size: inherit;
+        margin: 0;
+    }
+
+    &:hover,
+    &:visited {
+        color: black;
+    }
+}

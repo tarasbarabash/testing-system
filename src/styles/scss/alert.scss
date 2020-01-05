@@ -1,0 +1,12 @@
+@import "./variables.scss";
+
+.alert {
+    padding: $main-dimen;
+    margin: $main-dimen;
+    border-radius: 5px;
+}
+
+.alert-danger {
+    border: 1px solid red;
+    background: lightcoral;
+}

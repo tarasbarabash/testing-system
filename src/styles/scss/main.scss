@@ -1,0 +1,130 @@
+@import "./variables.scss";
+@import "./typography.scss";
+@import "./mixins.scss";
+
+html,
+body {
+  font-size: calc(12pt + 0.1vw);
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", "Arial Narrow", Arial, sans-serif;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  @include background-gradient(to right, dark-blue, light-purple);
+}
+
+.container {
+  @include flex(column);
+  max-width: $max-width;
+  height: 100%;
+  width: 100%;
+  margin: $main-dimen;
+}
+
+main {
+  @include flex(column);
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  margin: $main-dimen * 2;
+  padding: $main-dimen / 2;
+  @include accent(white);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form {
+  @include flex(column);
+  width: 100%;
+
+  #{&}-group {
+    display: flex;
+    padding: $main-dimen / 2 0;
+    align-items: center;
+    flex-wrap: wrap;
+
+    label {
+      font-weight: 600;
+      padding: $main-dimen / 2 0;
+      min-width: 120px;
+      flex: 1;
+    }
+
+    input {
+      border-radius: 5px;
+      border-image: linear-gradient(to right, getColor(dark-blue), getColor(light-purple)) 30;
+      margin: $main-dimen / 2 0;
+      padding: $main-dimen / 2;
+      font-size: 1em;
+      font-family: inherit;
+      flex: 1;
+    }
+  }
+}
+
+.row {
+  @include flex(row);
+  align-items: center;
+}
+
+.btn {
+  padding: $main-dimen / 2;
+  min-width: $main-dimen * 4;
+  display: block;
+  text-decoration: none;
+}
+
+.action {
+  margin-left: auto;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  background: getColor(dark-blue);
+}
+
+.muted {
+  color: gray;
+  font-size: 0.7em;
+}
+
+footer {
+  padding: $main-dimen;
+
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.gradient {
+  @include text-gradient(to right, dark-blue, light-purple);
+}
+
+.item {
+  text-align: center;
+  padding: $main-dimen;
+}

@@ -1,0 +1,29 @@
+@import "./variables.scss";
+@import "./typography.scss";
+@import "./mixins.scss";
+
+main {
+  flex-grow: 1;
+}
+
+header,
+main,
+footer {
+  flex-shrink: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+footer {
+  @include flex(row);
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, .9);
+  color: white;
+  font-size: 0.8em;
+  min-height: 100%;
+}
