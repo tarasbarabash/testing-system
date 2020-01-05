@@ -58,3 +58,7 @@ export const endAllSessionsHandler = async (req, res, next) => {
         next(err);
     }
 }
+
+export const validateToken = async ({ user: { name, mail, role, created } }, res, next) => {
+    return res.json({ name, mail, role, created });
+}
