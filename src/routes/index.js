@@ -16,7 +16,7 @@ export const initRoutes = app => {
             });
         else {
             console.error(err);
-            res.status(502).json({
+            res.status(200).json({
                 error: "Something went wrong",
             });
         }
