@@ -4,7 +4,7 @@
   "description": "",
   "main": "out/index.js",
   "scripts": {
-    "build": "babel src --out-dir out",
+    "build": "babel src --out-dir out --copy-files",
     "start:dev": "nodemon --exec babel-node ./src/index.js",
     "start": "node out/index.js",
     "test": "cross-env NODE_ENV=test mocha --require @babel/register ./tests/index.js --exit"
