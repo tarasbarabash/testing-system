@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack-dev-server --config ./.webpack/webpack.dev.config.js --progress --colors",
-    "build": "webpack --config ./.webpack/webpack.build.config.js --progress --colors"
+    "build": "webpack --config ./.webpack/webpack.build.config.js"
   },
   "browserslist": [
     "> 1%",

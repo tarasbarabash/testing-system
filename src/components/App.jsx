@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => (
   <React.Fragment>
-    <Router>
+    <Router basename="/testing-system-front">
       <MainContent />
     </Router>
   </React.Fragment>
