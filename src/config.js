@@ -1,8 +1,10 @@
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import cors from "cors";
 
 export const initMiddleware = (app) => {
     app.use(bodyParser.json());
+    app.use(cors());
 }
 
 export const startApp = (app) => {
