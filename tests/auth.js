@@ -30,7 +30,7 @@ describe("Auth", () => {
                 role: 1,
                 name: "New user"
             }).end(async (err, res) => {
-                res.status.should.eq(502);
+                res.status.should.eq(400);
                 res.body.should.include({ "code": errorCodes.nonuniqueMail })
                 done();
             })
@@ -56,7 +56,7 @@ describe("Auth", () => {
                 mail: "random@mail.com",
                 password: "password"
             }).end((err, res) => {
-                res.status.should.eq(502);
+                res.status.should.eq(400);
                 res.body.should.include({ "code": errorCodes.mailNotFound })
                 done();
             })
@@ -66,7 +66,7 @@ describe("Auth", () => {
                 mail: "mail",
                 password: "password"
             }).end((err, res) => {
-                res.status.should.eq(502);
+                res.status.should.eq(400);
                 res.body.should.include({ "code": errorCodes.invalidInput })
                 done();
             })
@@ -76,7 +76,7 @@ describe("Auth", () => {
                 mail: testMail,
                 password: "password"
             }).end((err, res) => {
-                res.status.should.eq(502);
+                res.status.should.eq(400);
                 res.body.should.include({ "code": errorCodes.passMailNotFound })
                 done();
             })
