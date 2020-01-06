@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/scss/alert.scss";
+import "../../styles/scss/alert.scss";
 
 const alertTypes = {
   danger: 1

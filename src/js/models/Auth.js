@@ -1,16 +1,29 @@
 import request from "../models/Request";
-import AuthError from "../errors/AuthError";
 import User from "./User";
 
-const authStates = {
+export const authStates = {
     authorised: 1,
     guest: 2
 }
 
 class Auth {
     constructor() {
-        this._state = authStates.guest;
         this._token = localStorage.getItem("token");
+    }
+
+    async isAuthenticated() {
+        try {
+            const { name, role, created, error, mail } = await request.call({
+                reqMethod: "GET",
+                link: "/auth/validateToken"
+            });
+            if (!error) {
+                this._user = new User(name, mail, role, created);
+                this._state = authStates.authorised;
+            } else this._state = authStates.guest;
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     async login({ mail, password }) {
@@ -26,6 +39,7 @@ class Auth {
             if (!error) {
                 this._token = token;
                 this._user = new User(name, mail, role, created);
+                this._state = authStates.authorised;
                 localStorage.setItem("token", token);
                 return this._user;
             }
@@ -49,11 +63,31 @@ class Auth {
             });
             if (!error) {
                 this._token = token;
+                this._state = authStates.authorised;
                 this._user = new User(name, mail, role, created);
                 localStorage.setItem("token", token);
                 return this._user;
             }
             return { error, code };
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async logout() {
+        try {
+            const { success, error } = await request.call({
+                reqMethod: "GET",
+                link: "/auth/logout"
+            });
+            if (success) {
+                this._token = undefined;
+                this._user = undefined;
+                this._state = authStates.guest;
+                localStorage.removeItem("token");
+                return success;
+            }
+            return error;
         } catch (err) {
             console.log(err);
         }
@@ -72,4 +106,4 @@ class Auth {
     }
 }
 
-export default new Auth();
+export const auth = new Auth();

@@ -83,6 +83,11 @@ module.exports = {
       filename: "index.html",
       inject: true
     }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.src}/404.html`,
+      filename: "404.html",
+      inject: false
+    }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/assets`, to: `${PATHS.build}/assets` }
     ]),

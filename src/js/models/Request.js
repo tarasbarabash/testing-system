@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthError from "../errors/AuthError";
-import auth from "./Auth";
+import { auth } from "./Auth";
 
 class Request {
     constructor() {
@@ -8,13 +8,14 @@ class Request {
     }
 
     async call({ reqMethod, link, data }) {
-        const response = await axios({
+        const req = {
             method: reqMethod,
             url: `${this.endpoint}${link}`,
-            headers: { 'Authorization': "Bearer " + auth.token },
             data,
             validateStatus: () => true,
-        })
+        };
+        if (auth.token) req.headers = { 'Authorization': "Bearer " + auth.token };
+        const response = await axios(req);
         if (response.data.error && response.data.code === 403) throw new AuthError();
         return response.data;
     }

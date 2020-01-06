@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
-import auth from "../js/models/Auth";
-import { LoadingContext } from "../js/models/Contexts";
+import { auth } from "../models/Auth";
+import { LoadingContext } from "../models/Contexts";
 import { Alert, alertTypes } from "../components/Alert";
 
 const HomePage = props => {

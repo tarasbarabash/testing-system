@@ -1,9 +1,11 @@
 import React from "react";
-import "../styles/scss/loading.scss";
+import "../../styles/scss/loading.scss";
+import Logo from "./Logo";
 
 const Loading = () => {
   return (
     <div className="loading">
+      <Logo />
       <div className="spinner">
         <div className="bounce1"></div>
         <div className="bounce2"></div>
