@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import ApiError from "../errors/ApiError";
 import validator from "validator";
 import bcrypt from "bcryptjs";
@@ -31,6 +31,11 @@ const UserSchema = new Schema({
     created: Number,
     tokens: [{
         type: String
+    }],
+    quizzes: [{
+        id: Schema.Types.ObjectId,
+        result: Number,
+        time: Number
     }]
 });
 
@@ -58,6 +63,25 @@ UserSchema.statics.login = async function (mail, pass) {
     const passwordMatch = await bcrypt.compare(pass, user.password);
     if (!passwordMatch) throw new ApiError("No matches found! Double check the password and e-mail", passMailNotFound);
     return user;
+}
+
+UserSchema.statics.addQuizResult = async function (id, quiz) {
+    const user = await this.findOne({ _id: id });
+    if (!user) throw new ApiError("No user found with a provided it");
+    (user.quizzes || []).push(quiz);
+    return user.save();
+}
+
+UserSchema.statics.getQuizzesResults = async function (id) {
+    const quizzes = await this.aggregate([
+        { $match: { '_id': new Types.ObjectId(id) } },
+        { $unwind: { 'path': '$quizzes' } },
+        { $sort: { 'quizzes.time': -1 } },
+        { $lookup: { 'from': 'quizzes', 'localField': 'quizzes.id', 'foreignField': '_id', 'as': 'quizInfo' } },
+        { $unwind: { 'path': '$quizInfo' } },
+        { $project: { 'points': '$quizzes.result', 'name': '$quizInfo.name', 'quizId': '$quizzes.id', "questions": { "$size": "$quizInfo.questions" } } }
+    ]);
+    return quizzes;
 }
 
 export default model("User", UserSchema);

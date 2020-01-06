@@ -10,7 +10,7 @@ export const initRoutes = app => {
 
     app.use((err, req, res, next) => {
         if (err instanceof ApiError)
-            res.status(err.responseCode || 502).json({
+            res.status(err.responseCode || 400).json({
                 error: err.message,
                 code: err.code
             });

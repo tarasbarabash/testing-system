@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getQuizesHandler, createQuizHandler } from "../../handlers/api/quiz";
+import { getQuizesHandler, createQuizHandler, checkQuizResponses } from "../../handlers/api/quiz";
 import { requireEditorialAccess } from "../../middlewares/auth";
 import Quiz from "../../models/Quiz";
 import ApiError from "../../errors/ApiError";
@@ -38,5 +38,16 @@ quizRouter.get("/:id", async (req, res, next) => {
         next(err);
     }
 })
+
+quizRouter.post("/:id/check", async (req, res, next) => {
+    const { id } = req.params;
+    const { user, body: selectedOptions } = req;
+    try {
+        const result = await checkQuizResponses(user._id, id, selectedOptions);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+});
 
 export default quizRouter;

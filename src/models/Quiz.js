@@ -39,12 +39,25 @@ const QuizSchema = new Schema({
     }],
     accessibleTo: [{
         type: Number
-    }]
+    }],
+    timer: Number
 })
 
 QuizSchema.statics.getQuizzes = function (page = 0, limit = 10, user) {
     limit = parseInt(limit);
     return this.find({ $or: [{ accessibleTo: { $eq: [] } }, { accessibleTo: { $in: [user.role] } }] }).limit(limit).skip(limit * page);
+}
+
+QuizSchema.statics.getCorrectOptions = function (id) {
+    return this.aggregate([
+        { $match: { '_id': new Types.ObjectId(id) } },
+        { $unwind: { 'path': '$questions' } },
+        { $lookup: { 'from': 'questions', 'localField': 'questions', 'foreignField': '_id', 'as': 'questions' } },
+        { $unwind: { 'path': '$questions' } },
+        { $unwind: { 'path': '$questions.options' } },
+        { $match: { 'questions.options.correct': true } },
+        { $project: { '_id': 0, 'question': '$questions._id', 'correctOption': '$questions.options._id' } }
+    ])
 }
 
 QuizSchema.statics.getQuiz = function (id, user) {
