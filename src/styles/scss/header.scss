@@ -4,12 +4,11 @@
 header {
     @include flex(row);
     justify-content: space-between;
-    min-height: 100px;
     user-select: none;
 }
 
 .logo-wrapper {
-    padding: 0 $main-dimen;
+    padding: $main-dimen;
 }
 
 .left-section,
@@ -54,7 +53,7 @@ $item-min-width: 120px;
     background-position: left bottom;
     transition: all $in-transition-seconds ease;
 
-    &:not(:last-of-type) a:after {
+    & a:after {
         content: "";
         height: 70%;
         width: 1px;
@@ -67,7 +66,7 @@ $item-min-width: 120px;
         transition-delay: $in-transition-seconds;
     }
 
-    &:not(:last-of-type):hover a:after {
+    &:hover a:after {
         height: 100%;
         top: 0%;
         transition-delay: 0s;
@@ -86,6 +85,7 @@ $item-min-width: 120px;
     }
 
     & a {
+        z-index: -1;
         width: 100%;
         height: 100%;
         display: flex;
@@ -94,7 +94,8 @@ $item-min-width: 120px;
         margin: 0;
         text-decoration: none;
         color: black;
-        transition: all $in-transition-seconds ease;
+        transition: color $in-transition-seconds ease;
+        transition-delay: $out-transition-seconds;
     }
 }
 
@@ -102,6 +103,12 @@ $item-min-width: 120px;
     & .nav-item {
         width: 100%;
     }
+}
+
+.no-effects {
+    font-weight: normal;
+    text-align: end;
+    background: transparent;
 }
 
 .dropdown {
@@ -122,8 +129,6 @@ $item-min-width: 120px;
     }
 
     .nav-item {
-        padding: $main-dimen;
-
         &:last-of-type {
             border-bottom-right-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -186,7 +191,7 @@ $item-min-width: 120px;
     transform: rotate(-45deg);
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 940px) {
     .menu-button-container {
         display: flex;
     }
@@ -194,9 +199,9 @@ $item-min-width: 120px;
     .left-section .nav-list {
         position: absolute;
         top: 0;
-        margin-top: 150px;
+        margin-top: 182px;
         margin-left: calc(#{$main-dimen} + 0.5em);
-        width: calc(250px + (#{$main-dimen} + 0.5em));
+        width: calc(100% - (#{$main-dimen} * 3));
         left: 0;
         flex-direction: column;
         justify-content: center;
@@ -204,7 +209,7 @@ $item-min-width: 120px;
         box-shadow: 3px 5px 4px 0px rgba(71, 71, 71, .4);
     }
 
-    .left-section .nav-item:not(:last-of-type) a:after {
+    .left-section .nav-item a:after {
         display: none;
     }
 
@@ -220,6 +225,10 @@ $item-min-width: 120px;
         height: 2.5em;
         padding: 0.5em;
         visibility: visible;
+
+        a {
+            z-index: 1;
+        }
 
         &:not(:last-of-type) {
             border-bottom: 1px solid lightgray;
@@ -244,15 +253,5 @@ $item-min-width: 120px;
     .left-section .nav-list .nav-item:last-child {
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
-    }
-}
-
-@media (max-width: 500px) {
-    .logo-wrapper {
-        display: none;
-    }
-
-    .left-section .nav-list {
-        width: calc(100% - (#{$main-dimen} * 3));
     }
 }

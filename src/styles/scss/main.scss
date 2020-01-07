@@ -97,11 +97,13 @@ section {
 .row {
   @include flex(row);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .column {
   @include flex(column);
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .btn {
