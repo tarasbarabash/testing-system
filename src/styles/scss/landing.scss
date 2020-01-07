@@ -8,8 +8,23 @@ main {
 
 header,
 main,
-footer {
+.footer {
   flex-shrink: 0;
+}
+
+.footer {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  >* {
+    padding: $main-dimen / 2 0;
+  }
+
+  .row {
+    flex: 1;
+    justify-content: center;
+  }
 }
 
 .card-content {
@@ -18,12 +33,26 @@ footer {
   flex-wrap: wrap;
 }
 
-footer {
-  @include flex(row);
+.footer {
+  @include flex(column);
   align-items: center;
-  justify-content: space-between;
   background: rgba(0, 0, 0, .9);
   color: white;
   font-size: 0.8em;
   min-height: 100%;
+}
+
+.item {
+  text-align: center;
+  padding: $main-dimen;
+  min-width: 65px;
+}
+
+.footer {
+  padding: $main-dimen;
+
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
 }

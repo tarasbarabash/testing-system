@@ -25,54 +25,62 @@ const RegisterPage = props => {
   };
 
   return (
-    <div className="form center">
-      {error && <Alert type={alertTypes.danger} text={error} />}
-      <form ref={formRef}>
-        <div className="form-group">
-          <label htmlFor="username">Name:</label>
-          <input
-            type="text"
-            onChange={e => setUsername(e.target.value)}
-            placeholder="username"
-            id="username"
-            value={username}
-            required
-          ></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="mail">E-mail:</label>
-          <input
-            type="email"
-            onChange={e => setMail(e.target.value)}
-            placeholder="test@test.com"
-            id="mail"
-            value={mail}
-            required
-          ></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            onChange={e => setPassword(e.target.value)}
-            placeholder="test"
-            id="password"
-            value={password}
-            required
-          ></input>
-        </div>
-        <input
-          type="submit"
-          value="Signup!"
-          onClick={e => onSignup(e)}
-          className="action btn"
-        ></input>
-      </form>
+    <section>
+      <div className="center">
+        <p className="text-center">
+          To create an account, please fill the form below.
+        </p>
+        <p className="text-center">All fields are required.</p>
+        <div className="form center">
+          {error && <Alert type={alertTypes.danger} text={error} />}
+          <form ref={formRef}>
+            <div className="form-group">
+              <label htmlFor="username">Name:</label>
+              <input
+                type="text"
+                onChange={e => setUsername(e.target.value)}
+                placeholder="username"
+                id="username"
+                value={username}
+                required
+              ></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="mail">E-mail:</label>
+              <input
+                type="email"
+                onChange={e => setMail(e.target.value)}
+                placeholder="test@test.com"
+                id="mail"
+                value={mail}
+                required
+              ></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+                placeholder="test"
+                id="password"
+                value={password}
+                required
+              ></input>
+            </div>
+            <input
+              type="submit"
+              value="Signup!"
+              onClick={e => onSignup(e)}
+              className="action btn"
+            ></input>
+          </form>
 
-      <Link to="/" className="btn muted">
-        I have an account
-      </Link>
-    </div>
+          <Link to="/" className="btn muted">
+            I have an account
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 

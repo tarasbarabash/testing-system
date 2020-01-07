@@ -4,11 +4,11 @@ import Footer from "../components/Footer";
 
 const MainPage = props => {
   return (
-    <React.Fragment>
-      <Header></Header>
-      {props.children}
-      <Footer></Footer>
-    </React.Fragment>
+    <div className="card">
+      <Header />
+      <main>{props.children}</main>
+      <Footer />
+    </div>
   );
 };
 

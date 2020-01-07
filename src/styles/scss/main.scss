@@ -39,15 +39,26 @@ main {
   @include flex(column);
 }
 
+.card main {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
 .center {
   align-items: center;
   justify-content: center;
 }
 
 .card {
-  margin: $main-dimen * 2;
-  padding: $main-dimen / 2;
+  margin: $main-dimen;
   @include accent(white);
+}
+
+.card header,
+main,
+footer,
+section {
+  padding: $main-dimen;
 }
 
 .text-center {
@@ -73,7 +84,7 @@ main {
 
     input {
       border-radius: 5px;
-      border-image: linear-gradient(to right, getColor(dark-blue), getColor(light-purple)) 30;
+      border: 1px solid lightgray;
       margin: $main-dimen / 2 0;
       padding: $main-dimen / 2;
       font-size: 1em;
@@ -85,6 +96,11 @@ main {
 
 .row {
   @include flex(row);
+  align-items: center;
+}
+
+.column {
+  @include flex(column);
   align-items: center;
 }
 
@@ -111,20 +127,11 @@ main {
   font-size: 0.7em;
 }
 
-footer {
-  padding: $main-dimen;
-
-  & a {
-    text-decoration: none;
-    color: inherit;
-  }
-}
 
 .gradient {
   @include text-gradient(to right, dark-blue, light-purple);
 }
 
-.item {
-  text-align: center;
-  padding: $main-dimen;
+.bg-gradient {
+  @include background-gradient(to right, dark-blue, light-purple);
 }

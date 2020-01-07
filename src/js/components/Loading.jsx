@@ -5,7 +5,7 @@ import Logo from "./Logo";
 const Loading = () => {
   return (
     <div className="loading">
-      <Logo />
+      <Logo className="card" />
       <div className="spinner">
         <div className="bounce1"></div>
         <div className="bounce2"></div>

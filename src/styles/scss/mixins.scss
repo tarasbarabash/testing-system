@@ -16,7 +16,6 @@
 }
 
 @mixin accent($color) {
-  padding: $main-dimen;
   border-radius: 10px;
   background: getColor($color);
   box-shadow: 3px 5px 4px 0px rgba(71, 71, 71, .4);

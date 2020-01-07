@@ -8,12 +8,11 @@ const LandingPage = ({ children }) => {
     <React.Fragment>
       <main className="center">
         <div className="container">
-          <Logo />
+          <Logo className="card" />
           <div className="card full-width center">{children}</div>
         </div>
       </main>
       <footer className="footer">
-        <p>.t.a.b. Solutions, LLC. {new Date().getFullYear()}</p>
         <ul className="row">
           <li className="item">
             <Link to="/about">About us</Link>
@@ -28,6 +27,7 @@ const LandingPage = ({ children }) => {
             <Link to="/help">Help</Link>
           </li>
         </ul>
+        <div>.t.a.b. Solutions, LLC. {new Date().getFullYear()}</div>
       </footer>
     </React.Fragment>
   );

@@ -6,9 +6,9 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const { InjectManifest } = require("workbox-webpack-plugin");
 const WebpackManifestPlugin = require("webpack-pwa-manifest");
 
-const APP_NAME = "Webpack-Demo";
-const SHORT_NAME = "Webpack";
-const APP_DESCRITION = "Webpack app";
+const APP_NAME = "TestMaster";
+const SHORT_NAME = "TestMaster";
+const APP_DESCRITION = "Testing System";
 
 const PATHS = {
   src: path.join(__dirname, "../src"),
