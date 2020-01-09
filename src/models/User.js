@@ -79,7 +79,7 @@ UserSchema.statics.getQuizzesResults = async function (id) {
         { $sort: { 'quizzes.time': -1 } },
         { $lookup: { 'from': 'quizzes', 'localField': 'quizzes.id', 'foreignField': '_id', 'as': 'quizInfo' } },
         { $unwind: { 'path': '$quizInfo' } },
-        { $project: { 'points': '$quizzes.result', 'name': '$quizInfo.name', 'quizId': '$quizzes.id', "questions": { "$size": "$quizInfo.questions" } } }
+        { $project: { 'points': '$quizzes.result', 'name': '$quizInfo.name', 'quizId': '$quizzes.id', "questions": { "$size": "$quizInfo.questions" }, "time": "$quizzes.time" } }
     ]);
     return quizzes;
 }
