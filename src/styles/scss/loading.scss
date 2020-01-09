@@ -8,7 +8,7 @@
     width: 100vw;
     height: 100vh;
     @include flex(column);
-    @include background-gradient(to right, dark-blue, light-purple);
+    @include background-gradient($gradient-direction, dark-blue, light-purple);
     justify-content: center;
     align-items: center;
     z-index: 10;

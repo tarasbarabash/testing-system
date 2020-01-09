@@ -1,0 +1,41 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.table {
+    padding: $main-dimen 0;
+
+    &.stripped {
+        .row:nth-child(2n) {
+            background: rgb(228, 228, 228);
+        }
+    }
+
+    .table-header {
+        cursor: pointer;
+        justify-content: center;
+        font-weight: 600;
+        color: white;
+        text-transform: uppercase;
+        @include background-gradient($gradient-direction, dark-blue, light-purple);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .table-body .row {
+        border: 1px;
+        border-style: solid;
+        border-color: lightgray;
+        flex-wrap: wrap;
+
+        &:last-of-type {
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+
+    .table-cell {
+        flex: 200px;
+        justify-content: center;
+        padding: $main-dimen 0;
+    }
+}

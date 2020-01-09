@@ -4,15 +4,15 @@ import { authStates, auth } from "../models/Auth";
 
 const ProtectedRoute = ({ children, isAuthRequired, ...rest }) => {
   const authorised = auth._state === authStates.authorised;
-  return (
-    <Route {...rest}>
-      {isAuthRequired === authorised ? (
-        { ...children }
-      ) : (
-        <Redirect to={isAuthRequired ? "/" : "/dashboard"}></Redirect>
-      )}
-    </Route>
-  );
+  let element;
+  if (authorised) {
+    if (isAuthRequired) element = { ...children };
+    else element = <Redirect to="/dashboard" />;
+  } else {
+    if (isAuthRequired) element = <Redirect to="/" />;
+    else element = { ...children };
+  }
+  return <Route {...rest}>{element}</Route>;
 };
 
 export default ProtectedRoute;
