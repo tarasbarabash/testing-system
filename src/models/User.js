@@ -72,16 +72,27 @@ UserSchema.statics.addQuizResult = async function (id, quiz) {
     return user.save();
 }
 
-UserSchema.statics.getQuizzesResults = async function (id) {
-    const quizzes = await this.aggregate([
+UserSchema.statics.getQuizzesResults = async function ({ userId: id, limit = 10, offset = 0, sort: sortField = "time", dir = -1, name, date }) {
+    const match = {};
+    if (name) match["name"] = {
+        $regex: new RegExp(`.*${name}.*`, "i")
+    };
+    if (date) match["time"] = {
+        $gte: date,
+        $lt: date + 24 * 60 * 60 * 1000
+    }
+    const pipeline = [
         { $match: { '_id': new Types.ObjectId(id) } },
         { $unwind: { 'path': '$quizzes' } },
         { $sort: { 'quizzes.time': -1 } },
         { $lookup: { 'from': 'quizzes', 'localField': 'quizzes.id', 'foreignField': '_id', 'as': 'quizInfo' } },
         { $unwind: { 'path': '$quizInfo' } },
-        { $project: { 'points': '$quizzes.result', 'name': '$quizInfo.name', 'quizId': '$quizzes.id', "questions": { "$size": "$quizInfo.questions" }, "time": "$quizzes.time" } }
-    ]);
-    return quizzes;
+        { $project: { 'points': '$quizzes.result', 'name': '$quizInfo.name', 'quizId': '$quizzes.id', "questions": { "$size": "$quizInfo.questions" }, "time": "$quizzes.time", "total": "$total" } },
+        { $match: match },
+        { $sort: { [sortField]: dir } }
+    ];
+    const quizzes = await this.aggregate(pipeline);
+    return { total: quizzes.length, data: quizzes.slice(offset, offset + limit) };
 }
 
 export default model("User", UserSchema);
