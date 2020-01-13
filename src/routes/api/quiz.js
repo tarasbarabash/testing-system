@@ -7,7 +7,7 @@ import ApiError from "../../errors/ApiError";
 const quizRouter = Router();
 
 quizRouter.get("/", async (req, res, next) => {
-    let { user, query: { limit, offset, sort, dir, name, date, complexity, questionNumb } } = req;
+    let { user, query: { limit, offset, sort, dir, name, date, complexity, questionNumb, quizId } } = req;
     limit = limit && parseInt(limit);
     offset = offset && parseInt(offset);
     dir = dir && parseInt(dir);
@@ -15,7 +15,7 @@ quizRouter.get("/", async (req, res, next) => {
     complexity = complexity && parseInt(complexity);
     questionNumb = questionNumb && parseInt(questionNumb);
     try {
-        const result = await getQuizesHandler({ user, limit, offset, sort, dir, name, date, complexity, questionNumb });
+        const result = await getQuizesHandler({ user, limit, offset, sort, dir, name, date, complexity, questionNumb, quizId });
         return res.json(result);
     } catch (err) {
         next(err);

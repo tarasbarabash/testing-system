@@ -8,6 +8,7 @@ const QuizSchema = new Schema({
         required: true,
         type: String
     },
+    description: String,
     creator: {
         required: true,
         type: Schema.Types.ObjectId
@@ -40,19 +41,22 @@ const QuizSchema = new Schema({
     accessibleTo: [{
         type: Number
     }],
-    timer: Number
+    timer: Number,
+    attempts: Number
 })
 
-QuizSchema.statics.getQuizzes = async function ({ user: { role }, limit = 10, offset = 0, sort: sortField = "complexity", dir = -1, name, date, complexity, questionNumb }) {
+QuizSchema.statics.getQuizzes = async function ({ user: { role }, limit = 10, offset = 0, sort: sortField = "complexity", dir = -1, name, date, complexity, questionNumb, quizId }) {
     const match = {};
     if (name) match.name = { $regex: new RegExp(`.*${name}.*`, "i") };
     if (complexity) match.complexity = complexity;
     if (questionNumb) match.questions = questionNumb;
+    if (quizId) match._id = quizId;
     const pipeline = [
         { $match: { 'accessibleTo': { $in: [[], role] } } },
         { $lookup: { 'from': 'users', 'localField': 'creator', 'foreignField': '_id', 'as': 'creatorInfo' } },
         { $unwind: { 'path': '$creatorInfo' } },
-        { $project: { 'questions': { $size: "$questions" }, 'name': 1, 'complexity': 1, 'creator': { '_id': '$creator', 'name': '$creatorInfo.name', 'mail': '$creatorInfo.mail' }, 'tags': 1 } },
+        { $project: { "creatorInfo.tokens": 0, "creatorInfo.password": 0, "creatorInfo.quizzes": 0 } },
+        { $addFields: { "questions": { $size: "$questions" } } },
         { $match: match },
         { $sort: { [sortField]: dir } }
     ];
