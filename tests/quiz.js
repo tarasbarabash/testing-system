@@ -59,7 +59,7 @@ describe("Quiz", () => {
     })
     it("should return all accessible quizzes", (done) => {
         chai.request(app).get("/api/quiz").set("Authorization", `Bearer ${userToken}`).send().then((res) => {
-            res.body.length.should.equal(2);
+            res.body.total.should.equal(1);
             done();
         })
     })

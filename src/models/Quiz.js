@@ -15,7 +15,7 @@ const QuizSchema = new Schema({
     tags: {
         type: [{
             type: Schema.Types.ObjectId,
-            req: "Tags"
+            ref: "Tags"
         }]
     },
     complexity: {
@@ -43,9 +43,24 @@ const QuizSchema = new Schema({
     timer: Number
 })
 
-QuizSchema.statics.getQuizzes = function (page = 0, limit = 10, user) {
-    limit = parseInt(limit);
-    return this.find({ $or: [{ accessibleTo: { $eq: [] } }, { accessibleTo: { $in: [user.role] } }] }).limit(limit).skip(limit * page);
+QuizSchema.statics.getQuizzes = async function ({ user: { role }, limit = 10, offset = 0, sort: sortField = "complexity", dir = -1, name, date, complexity, questionNumb }) {
+    const match = {};
+    if (name) match.name = { $regex: new RegExp(`.*${name}.*`, "i") };
+    if (complexity) match.complexity = complexity;
+    if (questionNumb) match.questions = questionNumb;
+    const pipeline = [
+        { $match: { 'accessibleTo': { $in: [[], role] } } },
+        { $lookup: { 'from': 'users', 'localField': 'creator', 'foreignField': '_id', 'as': 'creatorInfo' } },
+        { $unwind: { 'path': '$creatorInfo' } },
+        { $project: { 'questions': { $size: "$questions" }, 'name': 1, 'complexity': 1, 'creator': { '_id': '$creator', 'name': '$creatorInfo.name', 'mail': '$creatorInfo.mail' }, 'tags': 1 } },
+        { $match: match },
+        { $sort: { [sortField]: dir } }
+    ];
+    const result = await this.aggregate(pipeline);
+    let withTime = result.map(i => ({ time: new Types.ObjectId(i._id).generationTime * 1000, ...i }));
+    if (date) withTime = withTime.filter(i => i.time < date + 24 * 60 * 60 * 1000 && i.time > date);
+    if (sortField === "time") withTime.sort((a, b) => dir === -1 ? b.time - a.time : a.time - b.time);
+    return { total: withTime.length, data: withTime.splice(offset, offset + limit) }
 }
 
 QuizSchema.statics.getCorrectOptions = function (id) {

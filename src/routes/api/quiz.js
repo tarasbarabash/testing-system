@@ -7,9 +7,15 @@ import ApiError from "../../errors/ApiError";
 const quizRouter = Router();
 
 quizRouter.get("/", async (req, res, next) => {
-    const { page, limit } = req.query;
+    let { user, query: { limit, offset, sort, dir, name, date, complexity, questionNumb } } = req;
+    limit = limit && parseInt(limit);
+    offset = offset && parseInt(offset);
+    dir = dir && parseInt(dir);
+    date = date && parseInt(date);
+    complexity = complexity && parseInt(complexity);
+    questionNumb = questionNumb && parseInt(questionNumb);
     try {
-        const result = await getQuizesHandler(req.user, page, limit);
+        const result = await getQuizesHandler({ user, limit, offset, sort, dir, name, date, complexity, questionNumb });
         return res.json(result);
     } catch (err) {
         next(err);

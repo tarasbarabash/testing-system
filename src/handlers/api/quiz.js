@@ -5,8 +5,8 @@ import User from "../../models/User";
 import { Types } from "mongoose";
 import ApiError from "../../errors/ApiError";
 
-export const getQuizesHandler = (user, page = 0, limit = 10) => {
-    return Quiz.getQuizzes(page, limit, user);
+export const getQuizesHandler = (props) => {
+    return Quiz.getQuizzes(props);
 }
 
 export const createQuizHandler = async (newQuiz, user) => {
