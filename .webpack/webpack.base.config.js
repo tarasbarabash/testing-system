@@ -25,7 +25,7 @@ module.exports = {
   output: {
     filename: `js/[name].[hash].js`,
     path: PATHS.build,
-    publicPath: ""
+    publicPath: process.env.BASE_URL ? process.env.BASE_URL : "/"
   },
   optimization: {
     splitChunks: {

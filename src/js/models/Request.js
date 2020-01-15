@@ -1,5 +1,6 @@
 import axios from "axios";
 import AuthError from "../errors/AuthError";
+import BadRequestError from "../errors/BadRequestError";
 import { auth } from "./Auth";
 
 class Request {
@@ -17,6 +18,7 @@ class Request {
         if (auth.token) req.headers = { 'Authorization': "Bearer " + auth.token };
         const response = await axios(req);
         if (response.data.error && response.data.code === 403) throw new AuthError();
+        if (response.data.error) return { error: response.data.error };
         return response.data;
     }
 }

@@ -1,23 +1,23 @@
 import React, { useState, useContext } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { auth } from "../models/Auth";
-import { LoadingContext } from "../models/Contexts";
 import { Alert, alertTypes } from "../components/Alert";
+import { CommonContext } from "../components/App";
 
 const HomePage = props => {
   const [password, setPassword] = useState("test");
   const [mail, setMail] = useState("test@gmail.com");
   const [error, setError] = useState("");
   const formRef = React.createRef();
-  const setIsLoading = useContext(LoadingContext);
+  const { setLoading } = useContext(CommonContext);
 
   const onLogin = async e => {
     const i = formRef.current.reportValidity();
     if (!i) return;
     e.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
     const response = await auth.login({ mail, password });
-    setIsLoading(false);
+    setLoading(false);
     if (!response) return;
     if (response.error) setError(response.error);
     if (response.username) props.history.push("/dashboard");

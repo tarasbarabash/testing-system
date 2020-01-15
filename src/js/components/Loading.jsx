@@ -2,9 +2,9 @@ import React from "react";
 import "../../styles/scss/loading.scss";
 import Logo from "./Logo";
 
-const Loading = () => {
+const Loading = ({ className }) => {
   return (
-    <div className="loading">
+    <div className={`loading ${className}`}>
       <Logo className="card" />
       <div className="spinner">
         <div className="bounce1"></div>

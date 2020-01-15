@@ -2,7 +2,6 @@
 
 .circular-chart {
     display: block;
-    margin: 10px auto;
     max-width: 80%;
     max-height: 250px;
     user-select: none;
@@ -10,7 +9,7 @@
 
 .circle-bg {
     fill: none;
-    stroke: #eee;
+    stroke: #d0d0d0;
     stroke-width: 3.5;
 }
 
@@ -19,6 +18,10 @@
     stroke-width: 2.5;
     stroke-linecap: round;
     animation: progress 1.5s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.no-animation {
+    animation: none;
 }
 
 #stop1 {

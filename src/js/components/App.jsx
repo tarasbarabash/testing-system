@@ -1,41 +1,40 @@
 import "../../styles/scss/main.scss";
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import MainContent from "./MainContent";
 import { BrowserRouter as Router } from "react-router-dom";
 import { auth } from "../models/Auth";
 import Loading from "./Loading";
-import { LoadingContext } from "../models/Contexts";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      done: false
-    };
-  }
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const [done, setDone] = useState(false);
 
-  setIsLoading = value => this.setState({ loading: value });
+  const setDocumentTitle = title => (document.title = `${title} | TestMaster`);
 
-  async componentDidMount() {
-    await auth.isAuthenticated().then(() => {
-      setTimeout(() => {
-        this.setState({ loading: false, done: true });
-      }, 0);
-    });
-  }
+  useEffect(() => {
+    async function checkAuth() {
+      await auth.isAuthenticated();
+      setLoading(false);
+      setDone(true);
+    }
+    checkAuth();
+  }, []);
 
-  render() {
-    const { loading: isLoading, done } = this.state;
-    return (
-      <LoadingContext.Provider value={this.setIsLoading}>
-        <Router basename={process.env.BASE_URL}>
-          {isLoading && <Loading />}
-          {done && <MainContent />}
-        </Router>
-      </LoadingContext.Provider>
-    );
-  }
-}
+  return (
+    <CommonContext.Provider
+      value={{
+        setLoading,
+        setDocumentTitle
+      }}
+    >
+      <Router basename={process.env.BASE_URL}>
+        <Loading className={loading ? "fadeIn" : "fadeOut"} />
+        {done && <MainContent />}
+      </Router>
+    </CommonContext.Provider>
+  );
+};
 
 export default App;
+
+export const CommonContext = React.createContext({});

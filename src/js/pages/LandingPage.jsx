@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../styles/scss/landing.scss";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
+import { CommonContext } from "../components/App";
 
-const LandingPage = ({ children }) => {
+const LandingPage = ({ title, children }) => {
+  const { setDocumentTitle: setTitle } = useContext(CommonContext);
+  setTitle(title);
   return (
     <React.Fragment>
-      <main className="center">
+      <main className="content center">
         <div className="container">
-          <Logo className="card" />
-          <div className="card full-width center">{children}</div>
+          <div className="content">
+            <Logo className="card" />
+            <div className="card full-width center">{children}</div>
+          </div>
         </div>
       </main>
       <footer className="footer">

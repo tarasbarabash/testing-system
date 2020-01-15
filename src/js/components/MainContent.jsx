@@ -1,70 +1,77 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
-import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import RegisterPage from "../pages/RegisterPage";
 import MainPage from "../pages/MainPage";
 import ProtectedRoute from "./ProtectedRoute";
 import LogoutPage from "../pages/LogoutPage";
-import Dashboard from "./Dashboard";
-import Quizzes from "./Quizzes";
-import { LoadingContext } from "../models/Contexts";
+import DashboardPage from "../pages/DashboardPage";
+import QuizzesPage from "../pages/QuizzesPage";
+import QuizPage from "../pages/QuizPage";
+import FeaturesPage from "../pages/FeaturesPage";
+import CustomersPage from "../pages/CustomersPage";
+import HelpPage from "../pages/HelpPage";
+import LoginPage from "../pages/LoginPage";
 
 const MainContent = () => {
-  const setIsLoading = useContext(LoadingContext);
   return (
     <Switch>
       <ProtectedRoute isAuthRequired={false} path="/" exact>
-        <LandingPage>
-          <HomePage />
+        <LandingPage title="Home">
+          <LoginPage />
         </LandingPage>
       </ProtectedRoute>
       <ProtectedRoute isAuthRequired={false} path="/register">
-        <LandingPage>
+        <LandingPage title="Register">
           <RegisterPage />
         </LandingPage>
       </ProtectedRoute>
       <ProtectedRoute isAuthRequired={true} path="/logout">
-        <LogoutPage setIsLoading={setIsLoading} />
+        <LogoutPage />
       </ProtectedRoute>
       <ProtectedRoute isAuthRequired={true} path="/dashboard">
-        <MainPage>
-          <Dashboard setIsLoading={setIsLoading} />
+        <MainPage title="Dashboard">
+          <DashboardPage />
         </MainPage>
       </ProtectedRoute>
       <ProtectedRoute isAuthRequired={true} path="/quizzes">
-        <MainPage>
-          <Quizzes setIsLoading={setIsLoading} />
+        <MainPage title="Quizzes">
+          <QuizzesPage />
+        </MainPage>
+      </ProtectedRoute>
+      <ProtectedRoute isAuthRequired={true} path="/quiz/:id">
+        <MainPage title="Quiz Info">
+          <QuizPage />
         </MainPage>
       </ProtectedRoute>
       <Route path="/features">
-        <MainPage>
-          <div>Features</div>
+        <MainPage title="Features">
+          <FeaturesPage />
         </MainPage>
       </Route>
       <Route path="/customers">
-        <MainPage>
-          <div>customers</div>
+        <MainPage title="Customers">
+          <CustomersPage />
         </MainPage>
       </Route>
       <Route path="/help">
-        <MainPage>
-          <div>help</div>
+        <MainPage title="Help">
+          <HelpPage />
         </MainPage>
       </Route>
       <Route path="/about">
-        <MainPage>
+        <MainPage title="About">
           <div>about</div>
         </MainPage>
       </Route>
       <Route path="/settings">
-        <MainPage>
+        <MainPage title="Settings">
           <div>settings</div>
         </MainPage>
       </Route>
       <Route path="*">
-        <LandingPage>
+        <LandingPage title="Not Found">
           <NotFoundPage />
         </LandingPage>
       </Route>

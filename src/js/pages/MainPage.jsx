@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { CommonContext } from "../components/App";
 
-const MainPage = props => {
+const MainPage = ({ children, title }) => {
+  const { setDocumentTitle: setTitle } = useContext(CommonContext);
+  setTitle(title);
   return (
     <div className="card">
       <Header />
-      <main>{props.children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );

@@ -1,31 +1,25 @@
-import React, { Component, useContext } from "react";
-import { LoadingContext } from "../models/Contexts";
+import React, { Component, useContext, useState, useEffect } from "react";
 import { auth } from "../models/Auth";
 import { Redirect } from "react-router-dom";
+import { CommonContext } from "../components/App";
 
-class LogoutPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      done: false
-    };
-  }
-
-  componentDidMount() {
-    this.props.setIsLoading(true);
+const LogoutPage = () => {
+  const { setLoading } = useContext(CommonContext);
+  const [out, setOut] = useState(false);
+  const [done, setDone] = useState(false);
+  const onPageLoaded = () => {
+    setLoading(true);
     auth.logout().then(result => {
-      if (result) this.setState({ out: true });
-      else this.setState({ out: false });
-      this.setState({ done: true });
-      this.props.setIsLoading(false);
+      setOut(result);
+      setDone(true);
+      setLoading(false);
     });
-  }
+  };
 
-  render() {
-    if (this.state.done)
-      return <Redirect to={this.state.out ? "/" : "/dashboard"}></Redirect>;
-    else return <div>Logout</div>;
-  }
-}
+  useEffect(onPageLoaded, []);
+
+  if (done) return <Redirect to={out ? "/" : "/dashboard"}></Redirect>;
+  else return <div>Logout</div>;
+};
 
 export default LogoutPage;

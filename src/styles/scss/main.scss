@@ -12,7 +12,6 @@ body {
   font-family: "Montserrat", "Arial Narrow", Arial, sans-serif;
 }
 
-
 $in-transition-seconds: 0.5s;
 $out-transition-seconds: 0.2s;
 
@@ -22,10 +21,11 @@ $out-transition-seconds: 0.2s;
   text-decoration: none;
   color: black;
   background: linear-gradient(to right,
-      transparent 50%,
+      transparent 51%,
       getColor(dark-blue) 50%);
   background-size: 200% 100%;
   background-position: left bottom;
+  display: inline-block;
   transition: all $in-transition-seconds ease;
 
   &:hover {
@@ -54,8 +54,14 @@ li {
   @include flex(column);
   max-width: $max-width;
   height: 100%;
-  width: 100%;
   margin: $main-dimen;
+  width: 88%;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -65,9 +71,11 @@ main {
 .card main {
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  flex: 1;
 }
 
 .center {
+  @include flex(column);
   align-items: center;
   justify-content: center;
 }
@@ -75,6 +83,7 @@ main {
 .card {
   margin: $main-dimen;
   @include accent(white);
+  display: block;
 }
 
 .card header,
@@ -92,26 +101,33 @@ section {
   @include flex(column);
   width: 100%;
 
+  .row {
+    width: 100%;
+  }
+
   #{&}-group {
     display: flex;
     padding: $main-dimen / 2 0;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
 
     label {
       font-weight: 600;
       padding: $main-dimen / 2 0;
       min-width: 120px;
-      flex: 1;
     }
 
-    input {
+    input,
+    textarea {
       border-radius: 5px;
       border: 1px solid lightgray;
       margin: $main-dimen / 2 0;
       padding: $main-dimen / 2;
       font-size: 1em;
       font-family: inherit;
+      width: 100%;
+      flex-basis: 340px;
       flex: 1;
     }
   }
@@ -152,6 +168,9 @@ section {
   font-size: 0.7em;
 }
 
+.hidden {
+  display: none;
+}
 
 .gradient {
   @include text-gradient($gradient-direction, dark-blue, light-purple);
@@ -159,4 +178,27 @@ section {
 
 .bg-gradient {
   @include background-gradient($gradient-direction, dark-blue, light-purple);
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  grid-column-gap: $main-dimen / 4;
+  grid-row-gap: $main-dimen / 4;
+  grid-template-columns: repeat(auto-fit, 350px);
+
+  @media (max-width: 450px) {
+    grid-template-columns: repeat(auto-fit, 260px);
+  }
+
+  p {
+    line-height: 1.5em;
+  }
+}
+
+.grid-item {
+  border: 1px solid lightgray;
+  @include flex(column);
+  padding: $main-dimen;
+  min-height: 300px;
 }
