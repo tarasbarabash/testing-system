@@ -21,4 +21,8 @@ export default class User {
     get created() {
         return this._created;
     }
+
+    set username(username) {
+        this._username = username;
+    }
 }

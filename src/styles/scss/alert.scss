@@ -4,6 +4,12 @@
     padding: $main-dimen;
     margin: $main-dimen;
     border-radius: 5px;
+    transition: all 1s ease-in-out;
+
+    &.fadeOut {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .alert-danger {

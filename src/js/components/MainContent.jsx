@@ -13,6 +13,8 @@ import FeaturesPage from "../pages/FeaturesPage";
 import CustomersPage from "../pages/CustomersPage";
 import HelpPage from "../pages/HelpPage";
 import LoginPage from "../pages/LoginPage";
+import AboutUsPage from "../pages/AboutUsPage";
+import SettingsPage from "../pages/SettingsPage";
 
 const MainContent = () => {
   return (
@@ -40,6 +42,11 @@ const MainContent = () => {
           <QuizzesPage />
         </MainPage>
       </ProtectedRoute>
+      <ProtectedRoute isAuthRequired={true} path="/quiz/new" exact>
+        <MainPage title="New Quiz">
+          <div>New Quiz</div>
+        </MainPage>
+      </ProtectedRoute>
       <ProtectedRoute isAuthRequired={true} path="/quiz/:id">
         <MainPage title="Quiz Info">
           <QuizPage />
@@ -62,12 +69,12 @@ const MainContent = () => {
       </Route>
       <Route path="/about">
         <MainPage title="About">
-          <div>about</div>
+          <AboutUsPage />
         </MainPage>
       </Route>
       <Route path="/settings">
         <MainPage title="Settings">
-          <div>settings</div>
+          <SettingsPage />
         </MainPage>
       </Route>
       <Route path="*">

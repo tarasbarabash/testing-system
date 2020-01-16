@@ -14,16 +14,16 @@
     z-index: 10;
     transition: opacity 0.2s, visibility 0.2s;
     visibility: collapse;
+}
 
-    &.fadeIn {
-        opacity: 1;
-        visibility: visible;
-    }
+.fadeIn {
+    opacity: 1;
+    visibility: visible;
+}
 
-    &.fadeOut {
-        opacity: 0;
-        visibility: collapse;
-    }
+.fadeOut {
+    opacity: 0;
+    visibility: collapse;
 }
 
 .spinner {

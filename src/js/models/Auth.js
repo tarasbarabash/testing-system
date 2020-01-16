@@ -97,6 +97,10 @@ class Auth {
         return this._user;
     }
 
+    set username(username) {
+        this._user.username = username;
+    }
+
     get state() {
         return this._state;
     }

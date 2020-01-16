@@ -1,0 +1,38 @@
+@import "./variables.scss";
+
+footer {
+    background-color: lightgray;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    .row {
+        align-items: flex-start;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+    }
+
+    .footer-title a {
+        font-size: inherit;
+        text-decoration: none;
+        color: black;
+    }
+
+    .footer-item {
+        align-items: start;
+        margin: .7em 0;
+        font-size: .8em;
+
+        &>a {
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    .footer-column {
+        width: 100 / 5 * 1%;
+        flex-basis: $max-width / 5;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+}

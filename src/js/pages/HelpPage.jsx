@@ -25,9 +25,9 @@ const HelpPage = () => {
         message
       }
     });
+    setLoading(false);
     if (done) setSuccess("Your message was sent!");
     else setError("Something went wrong, please try again later!");
-    setLoading(false);
   };
 
   return (

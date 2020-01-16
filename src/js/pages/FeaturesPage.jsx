@@ -7,7 +7,7 @@ const FeaturesPage = () => {
         <div className="content">
           <h3 className="heading-4">Features</h3>
           <p className="muted">Features of the TestMaster.</p>
-          <section className="text-center">
+          <section className="text-center" id="benefits">
             <h1 className="heading-4 title">Build engaging Exams and Tests</h1>
             <div className="grid">
               <div className="grid-item center">
@@ -52,7 +52,7 @@ const FeaturesPage = () => {
               </div>
             </div>
           </section>
-          <section className="text-center">
+          <section className="text-center" id="learning">
             <h1 className="heading-4 title">Learn</h1>
             <div className="grid">
               <div className="grid-item center">
@@ -96,7 +96,7 @@ const FeaturesPage = () => {
               </div>
             </div>
           </section>
-          <section className="text-center">
+          <section className="text-center" id="tracking">
             <h1 className="heading-4 title">Tracking & Reporting</h1>
             <p className="muted">
               Keep track of your students. Download the results and stats to

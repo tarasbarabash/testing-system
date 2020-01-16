@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "../../styles/scss/alert.scss";
 
 const alertTypes = {
@@ -7,6 +7,17 @@ const alertTypes = {
 };
 
 const Alert = props => {
+  const alertRef = useRef();
+  useEffect(() => {
+    alertRef.current.classList.remove("fadeOut");
+    alertRef.current.classList.add("fadeIn");
+
+    setTimeout(() => {
+      alertRef.current.classList.remove("fadeIn");
+      alertRef.current.classList.add("fadeOut");
+    }, 5000);
+  }, [props.text]);
+
   let alertType;
   switch (props.type) {
     case alertTypes.danger:
@@ -17,7 +28,12 @@ const Alert = props => {
       break;
   }
   return (
-    <div className={`alert text-center alert-${alertType}`}>{props.text}</div>
+    <div
+      className={`alert text-center alert-${alertType} fadeIn`}
+      ref={alertRef}
+    >
+      {props.text}
+    </div>
   );
 };
 
