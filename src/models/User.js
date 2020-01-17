@@ -48,6 +48,14 @@ UserSchema.pre("save", async function (next) {
     next();
 })
 
+UserSchema.pre("findOneAndUpdate", async function (next) {
+    const update = this.getUpdate();
+    const keys = Object.keys(update);
+    if (keys.indexOf("password") > -1)
+        this._update.password = await bcrypt.hash(update.password, 8);
+    next();
+})
+
 UserSchema.methods.generateAuthToken = async function () {
     const user = this;
     const token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN);
@@ -72,7 +80,7 @@ UserSchema.statics.addQuizResult = async function (id, quiz) {
     return user.save();
 }
 
-UserSchema.statics.getQuizzesResults = async function ({ userId: id, limit = 10, offset = 0, sort: sortField = "time", dir = -1, name, date }) {
+UserSchema.statics.getQuizzesResults = async function ({ userId: id, quizId, limit = 10, offset = 0, sort: sortField = "time", dir = -1, name, date }) {
     const match = {};
     if (name) match["name"] = {
         $regex: new RegExp(`.*${name}.*`, "i")
@@ -81,6 +89,7 @@ UserSchema.statics.getQuizzesResults = async function ({ userId: id, limit = 10,
         $gte: date,
         $lt: date + 24 * 60 * 60 * 1000
     }
+    if (quizId) match["quizId"] = new Types.ObjectId(quizId);
     const pipeline = [
         { $match: { '_id': new Types.ObjectId(id) } },
         { $unwind: { 'path': '$quizzes' } },
