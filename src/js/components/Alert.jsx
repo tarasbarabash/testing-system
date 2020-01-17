@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "../../styles/scss/alert.scss";
 
 const alertTypes = {
@@ -15,8 +15,9 @@ const Alert = props => {
     setTimeout(() => {
       alertRef.current.classList.remove("fadeIn");
       alertRef.current.classList.add("fadeOut");
-    }, 5000);
-  }, [props.text]);
+      setTimeout(() => props.setMessage(""), 1000);
+    }, 6000);
+  }, [props]);
 
   let alertType;
   switch (props.type) {
@@ -28,10 +29,7 @@ const Alert = props => {
       break;
   }
   return (
-    <div
-      className={`alert text-center alert-${alertType} fadeIn`}
-      ref={alertRef}
-    >
+    <div className={`alert text-center alert-${alertType}`} ref={alertRef}>
       {props.text}
     </div>
   );

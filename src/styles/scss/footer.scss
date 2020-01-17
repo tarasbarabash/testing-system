@@ -2,8 +2,11 @@
 
 footer {
     background-color: lightgray;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+
+    &.with-radius {
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
 
     .row {
         align-items: flex-start;

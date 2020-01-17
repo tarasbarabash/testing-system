@@ -8,17 +8,19 @@ main {
 .root {
     @include flex(row);
     flex-wrap: wrap-reverse;
+    flex: 1;
 }
 
 .left-column {
-    flex: 6;
     border-right: 1px solid lightgray;
-    flex-basis: 400px;
+    flex-basis: 320px;
+    flex-shrink: 0;
+    flex-grow: 4;
 }
 
 .right-column {
-    flex: 1;
     flex-basis: 200px;
+    flex-grow: 1;
 
     .clear {
         cursor: pointer;
@@ -172,4 +174,9 @@ main {
         display: flex;
         padding: $main-dimen / 4;
     }
+}
+
+.filters {
+    position: sticky;
+    top: $main-dimen;
 }

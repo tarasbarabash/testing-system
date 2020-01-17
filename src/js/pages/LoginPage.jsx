@@ -30,8 +30,14 @@ const HomePage = props => {
           <p className="text-center">Test your knowledge with TestMaster.</p>
           <p className="text-center">To proceed, please login.</p>
           <div className="form center">
-            {error && <Alert text={error} type={alertTypes.danger} />}
             <form ref={formRef}>
+              {error && (
+                <Alert
+                  text={error}
+                  type={alertTypes.danger}
+                  setMessage={setError}
+                />
+              )}
               <div className="form-group">
                 <label htmlFor="mail">E-mail:</label>
                 <input

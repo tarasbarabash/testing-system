@@ -83,14 +83,19 @@ const ResponsiveList = ({
       </li>
     );
     if (totalPages > 1) {
-      if (curPage - 2 > 0)
+      if (curPage - 2 > 1)
         pages.push(
           <li key="dots_1">
             <button className="page-index dots">...</button>
           </li>
         );
+      const extraLeft = curPage - 2 === 1 ? 1 : 0;
+      const extraRight = curPage + 2 === totalPages - 2 ? 1 : 0;
       for (let i = 1; i < totalPages - 1; i++) {
-        if (i > curPage - maxPages && i < curPage + maxPages)
+        if (
+          i > curPage - maxPages - extraLeft &&
+          i < curPage + maxPages + extraRight
+        )
           pages.push(
             <li key={i + 1} data-value={i}>
               <button
@@ -102,7 +107,7 @@ const ResponsiveList = ({
             </li>
           );
       }
-      if (curPage + 2 < totalPages - 1)
+      if (curPage + 2 < totalPages - 2)
         pages.push(
           <li key="dots_2">
             <button className="page-index dots">...</button>
@@ -159,7 +164,7 @@ const ResponsiveList = ({
         {data.length > 0 && <ul className="pagination">{renderPages()}</ul>}
       </section>
       <section className="right-column">
-        <div>
+        <div className="filters">
           <h3 className="heading-3">Filters</h3>
           <div className="form">
             {filterFields.map(({ name, displayName, inputType }) => (
@@ -188,27 +193,27 @@ const ResponsiveList = ({
               Clear All
             </div>
           </div>
+          {total > 10 && (
+            <div>
+              <h3 className="heading-3">Show per page</h3>
+              <ul className="pagination limit">
+                {limitOptions.map(i => (
+                  <li
+                    key={i}
+                    className={`page-index filter-index ${i === params.limit &&
+                      "active"}`}
+                    onClick={() => {
+                      setParams({ ...params, limit: i, offset: 0 });
+                      setCurPage(0);
+                    }}
+                  >
+                    {i}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        {total > 10 && (
-          <div>
-            <h3 className="heading-3">Show per page</h3>
-            <ul className="pagination limit">
-              {limitOptions.map(i => (
-                <li
-                  key={i}
-                  className={`page-index filter-index ${i === params.limit &&
-                    "active"}`}
-                  onClick={() => {
-                    setParams({ ...params, limit: i, offset: 0 });
-                    setCurPage(0);
-                  }}
-                >
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </section>
     </div>
   );

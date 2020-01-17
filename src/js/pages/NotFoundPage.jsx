@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 const NotFoundPage = () => {
   const [redirect, setRedirect] = useState(false);
-  setTimeout(() => {
-    setRedirect(true);
-  }, 5000);
+  useEffect(() => {
+    const timer = setTimeout(() => setRedirect(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
   return !redirect ? (
     <section className="text-center">
       <h1 className="bold gradient heading-1">404</h1>

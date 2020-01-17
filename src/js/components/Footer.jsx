@@ -5,7 +5,7 @@ import "../../styles/scss/footer.scss";
 
 const Footer = () => {
   return (
-    <footer className="center">
+    <footer className="center with-radius">
       <div className="container">
         <div className="row">
           <div className="footer-column">
@@ -70,6 +70,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
+        <div className="row center">.t.a.b. Solutions, LLC. 2020</div>
       </div>
     </footer>
   );

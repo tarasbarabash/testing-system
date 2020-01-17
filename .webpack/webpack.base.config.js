@@ -9,6 +9,7 @@ const WebpackManifestPlugin = require("webpack-pwa-manifest");
 const APP_NAME = "TestMaster";
 const SHORT_NAME = "TestMaster";
 const APP_DESCRITION = "Testing System";
+const PUBLIC_PATH = process.env.BASE_URL ? process.env.BASE_URL : "/";
 
 const PATHS = {
   src: path.join(__dirname, "../src"),
@@ -25,7 +26,7 @@ module.exports = {
   output: {
     filename: `js/[name].[hash].js`,
     path: PATHS.build,
-    publicPath: process.env.BASE_URL ? process.env.BASE_URL : "/"
+    publicPath: PUBLIC_PATH
   },
   optimization: {
     splitChunks: {
@@ -99,11 +100,12 @@ module.exports = {
       theme_color: "#fff",
       display: "standalone",
       start_url: "index.html",
+      publicPath: PUBLIC_PATH,
       icons: [
         {
           src: path.resolve("./src/assets/icons/icon.png"),
           sizes: [72, 152, 384, 512],
-          destination: "assets/icons/"
+          destination: `assets/icons/`
         }
       ]
     }),

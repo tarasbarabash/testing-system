@@ -7,7 +7,7 @@ const MainPage = ({ children, title }) => {
   const { setDocumentTitle: setTitle } = useContext(CommonContext);
   setTitle(title);
   return (
-    <div className="card">
+    <div className="card full-size">
       <Header />
       <main>{children}</main>
       <Footer />

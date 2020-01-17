@@ -39,8 +39,20 @@ const HelpPage = () => {
             Have any questions? Contact us using the form below!
           </p>
           <div className="form">
-            {error && <Alert type={alertTypes.danger} text={error} />}
-            {success && <Alert type={alertTypes.success} text={success} />}
+            {error && (
+              <Alert
+                type={alertTypes.danger}
+                text={error}
+                setMessage={setError}
+              />
+            )}
+            {success && (
+              <Alert
+                type={alertTypes.success}
+                text={success}
+                setMessage={setSuccess}
+              />
+            )}
             <form ref={formRef}>
               <div className="form-group">
                 <label htmlFor="topic">Topic:</label>

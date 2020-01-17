@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { auth } from "../models/Auth";
 import { Alert, alertTypes } from "../components/Alert";
@@ -21,7 +21,7 @@ const RegisterPage = props => {
     setLoading(false);
     if (!response) return;
     if (response.error) setError(response.error);
-    if (response.username) props.history.push("/dashboard");
+    if (response.username) props.history.replace("/dashboard");
   };
 
   return (
@@ -32,8 +32,14 @@ const RegisterPage = props => {
         </p>
         <p className="text-center">All fields are required.</p>
         <div className="form center">
-          {error && <Alert type={alertTypes.danger} text={error} />}
           <form ref={formRef}>
+            {error && (
+              <Alert
+                type={alertTypes.danger}
+                text={error}
+                setMessage={setError}
+              />
+            )}
             <div className="form-group">
               <label htmlFor="username">Name:</label>
               <input

@@ -71,8 +71,20 @@ const SettingsPage = () => {
       <div className="container">
         <div className="content">
           <h3 className="heading-4">Settings</h3>
-          {error && <Alert type={alertTypes.danger} text={error} />}
-          {success && <Alert type={alertTypes.success} text={success} />}
+          {error && (
+            <Alert
+              type={alertTypes.danger}
+              text={error}
+              setMessage={setError}
+            />
+          )}
+          {success && (
+            <Alert
+              type={alertTypes.success}
+              text={success}
+              setMessage={setSuccess}
+            />
+          )}
           <h4 className="heading-5">Change Display Name</h4>
           <div className="form">
             <div className="form">
