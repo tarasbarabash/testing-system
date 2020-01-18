@@ -9,7 +9,9 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [done, setDone] = useState(false);
 
-  const setDocumentTitle = title => (document.title = `${title} | TestMaster`);
+  const setDocumentTitle = title => {
+    if (title) document.title = `${title} | TestMaster`;
+  };
 
   useEffect(() => {
     async function checkAuth() {

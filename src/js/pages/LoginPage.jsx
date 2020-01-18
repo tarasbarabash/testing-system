@@ -5,8 +5,8 @@ import { Alert, alertTypes } from "../components/Alert";
 import { CommonContext } from "../components/App";
 
 const HomePage = props => {
-  const [password, setPassword] = useState("test");
-  const [mail, setMail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("");
+  const [mail, setMail] = useState("");
   const [error, setError] = useState("");
   const formRef = React.createRef();
   const { setLoading } = useContext(CommonContext);
@@ -30,14 +30,14 @@ const HomePage = props => {
           <p className="text-center">Test your knowledge with TestMaster.</p>
           <p className="text-center">To proceed, please login.</p>
           <div className="form center">
+            {error && (
+              <Alert
+                text={error}
+                type={alertTypes.danger}
+                setMessage={setError}
+              />
+            )}
             <form ref={formRef}>
-              {error && (
-                <Alert
-                  text={error}
-                  type={alertTypes.danger}
-                  setMessage={setError}
-                />
-              )}
               <div className="form-group">
                 <label htmlFor="mail">E-mail:</label>
                 <input

@@ -3,6 +3,7 @@
 
 main {
     padding: 0;
+    width: 100%;
 }
 
 .root {
@@ -119,6 +120,30 @@ main {
     }
 }
 
+.page-index {
+    cursor: pointer;
+    background: none;
+    border: 1px solid lightgray;
+    padding: $main-dimen / 2;
+    font-size: 1em;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-family: inherit;
+    transition: all 0.2s ease-in;
+
+    &.active {
+        color: white;
+        @include background-gradient($gradient-direction, dark-blue, light-purple);
+        font-weight: 600;
+    }
+
+    &:hover:not(.active):not(.dots) {
+        background: lightgray;
+        border: 1px solid gray;
+    }
+}
+
 .pagination {
     @include flex(row);
     justify-content: center;
@@ -127,32 +152,8 @@ main {
         margin: 0 $main-dimen / 2;
     }
 
-    .page-index {
-        cursor: pointer;
-        background: none;
-        border: 1px solid lightgray;
-        padding: $main-dimen / 2;
-        font-size: 1em;
-        border-radius: 50%;
-        height: 50px;
-        width: 50px;
-        font-family: inherit;
-        transition: all 0.2s ease-in;
-    }
-
     .dots {
         cursor: initial;
-    }
-
-    .page-index.active {
-        color: white;
-        @include background-gradient($gradient-direction, dark-blue, light-purple);
-        font-weight: 600;
-    }
-
-    .page-index:hover:not(.active):not(.dots) {
-        background: lightgray;
-        border: 1px solid gray;
     }
 
     @media (max-width: 500px) {
@@ -176,7 +177,8 @@ main {
     }
 }
 
-.filters {
+.filters,
+.questions {
     position: sticky;
     top: $main-dimen;
 }

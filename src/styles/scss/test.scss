@@ -1,0 +1,68 @@
+@import "./mixins.scss";
+
+.quiz-index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    margin-right: $main-dimen / 2;
+}
+
+.question-option {
+    cursor: pointer;
+    margin: $main-dimen / 4 0;
+}
+
+.radio-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+
+    & input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    & .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+
+    &:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+    & input:checked~.checkmark {
+        @include background-gradient($gradient-direction, dark-blue, light-purple);
+    }
+
+    & .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    & input:checked~.checkmark:after {
+        display: block;
+    }
+
+    & .checkmark:after {
+        top: 9px;
+        left: 9px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+}

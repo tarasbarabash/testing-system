@@ -49,15 +49,23 @@ const QuizPage = () => {
             }
             showPercentage={true}
           />
+          <p className="muted">
+            {results.lastResult.points} / {quiz.questions.length} points
+          </p>
         </React.Fragment>
       ) : (
         <p className="muted center">You haven't taken this quiz yet!</p>
       )}
       {!quiz.attempts || (quiz.attempts && quiz.attempts > results.total) ? (
-        <div className="row">
-          <Link to={`/test/${id}`} className="btn action without-margin">
+        <div className="column">
+          <Link to={`/test/${id}`} className="btn action with-margin">
             Take A Quiz!
           </Link>
+          <p className="muted no-margin">
+            {quiz.attempts
+              ? `You have ${quiz.attempts - results.total} attempts left.`
+              : `Unlimited attempts!`}
+          </p>
         </div>
       ) : (
         <p className="muted">You've used all {quiz.attempts} attempts!</p>
@@ -121,14 +129,15 @@ const loadQuizInfo = async (id, setLoading) => {
   return { resp, lastResult, bestResults };
 };
 
-const durationToString = duration => {
+export const durationToString = duration => {
   let seconds = Math.floor((duration / 1000) % 60),
     minutes = Math.floor((duration / (1000 * 60)) % 60),
     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  if (duration < 0) [seconds, minutes, hours] = [0, 0, 0];
 
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
+  hours = `${hours}`.padStart(2, "0");
+  minutes = `${minutes}`.padStart(2, "0");
+  seconds = `${seconds}`.padStart(2, "0");
 
   return `${hours}:${minutes}:${seconds}`;
 };

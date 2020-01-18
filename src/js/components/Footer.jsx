@@ -14,9 +14,9 @@ const Footer = () => {
               <li className="footer-item">
                 <Link to="/quizzes">Take a quiz</Link>
               </li>
-              <li className="footer-item">
+              {/* <li className="footer-item">
                 <Link to="/quiz/new">Create new quiz</Link>
-              </li>
+              </li> */}
               <li className="footer-item">
                 <Link to="/dashboard">View results</Link>
               </li>

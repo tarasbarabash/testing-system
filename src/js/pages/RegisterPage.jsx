@@ -5,9 +5,9 @@ import { Alert, alertTypes } from "../components/Alert";
 import { CommonContext } from "../components/App";
 
 const RegisterPage = props => {
-  const [password, setPassword] = useState("test");
-  const [mail, setMail] = useState("test@gmail.com");
-  const [username, setUsername] = useState("test");
+  const [password, setPassword] = useState("");
+  const [mail, setMail] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const formRef = React.createRef();
   const { setLoading } = useContext(CommonContext);
@@ -32,14 +32,14 @@ const RegisterPage = props => {
         </p>
         <p className="text-center">All fields are required.</p>
         <div className="form center">
+          {error && (
+            <Alert
+              type={alertTypes.danger}
+              text={error}
+              setMessage={setError}
+            />
+          )}
           <form ref={formRef}>
-            {error && (
-              <Alert
-                type={alertTypes.danger}
-                text={error}
-                setMessage={setError}
-              />
-            )}
             <div className="form-group">
               <label htmlFor="username">Name:</label>
               <input

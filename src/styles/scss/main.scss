@@ -167,6 +167,10 @@ section {
   @include flex(column);
   align-items: center;
   flex-wrap: wrap;
+
+  &.baseline {
+    align-items: baseline;
+  }
 }
 
 .btn {
@@ -174,6 +178,7 @@ section {
   min-width: $main-dimen * 4;
   display: block;
   text-decoration: none;
+  text-align: center;
 }
 
 .action {
@@ -181,14 +186,15 @@ section {
   border-radius: 5px;
   border: none;
   color: white;
-  font-size: 0.9em;
   font-weight: 600;
   cursor: pointer;
   background: getColor(dark-blue);
+}
 
-  &.without-margin {
-    margin: $main-dimen;
-  }
+.with-margin {
+  margin-top: $main-dimen;
+  margin-bottom: $main-dimen / 2;
+  margin-left: 0;
 }
 
 .action:disabled {
@@ -199,6 +205,10 @@ section {
 .muted {
   color: gray;
   font-size: 0.7em;
+
+  &.no-margin {
+    margin: 0;
+  }
 }
 
 .hidden {
@@ -243,4 +253,8 @@ section {
 .items-center {
   @include flex(column);
   align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }

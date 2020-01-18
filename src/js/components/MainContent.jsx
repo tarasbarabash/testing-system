@@ -15,6 +15,7 @@ import HelpPage from "../pages/HelpPage";
 import LoginPage from "../pages/LoginPage";
 import AboutUsPage from "../pages/AboutUsPage";
 import SettingsPage from "../pages/SettingsPage";
+import TestPage from "../pages/TestPage";
 
 const MainContent = () => {
   return (
@@ -42,14 +43,14 @@ const MainContent = () => {
           <QuizzesPage />
         </MainPage>
       </ProtectedRoute>
-      <ProtectedRoute isAuthRequired={true} path="/quiz/new" exact>
-        <MainPage title="New Quiz">
-          <div>New Quiz</div>
+      <ProtectedRoute isAuthRequired={true} path="/quiz/:id">
+        <MainPage>
+          <QuizPage />
         </MainPage>
       </ProtectedRoute>
-      <ProtectedRoute isAuthRequired={true} path="/quiz/:id">
-        <MainPage title="Quiz Info">
-          <QuizPage />
+      <ProtectedRoute isAuthRequired={true} path="/test/:id">
+        <MainPage>
+          <TestPage />
         </MainPage>
       </ProtectedRoute>
       <Route path="/features">

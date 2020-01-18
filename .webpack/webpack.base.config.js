@@ -82,7 +82,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: "index.html",
-      inject: true
+      inject: true,
+      publicPath: PUBLIC_PATH
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/404.html`,
@@ -108,9 +109,6 @@ module.exports = {
           destination: `assets/icons/`
         }
       ]
-    }),
-    new InjectManifest({
-      swSrc: `${PATHS.src}/sw.js`
     })
   ],
   resolve: {

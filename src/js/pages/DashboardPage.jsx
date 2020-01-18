@@ -49,26 +49,3 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
-
-// const RightColumn = ({ lastQuiz: { points, questions, name, quizId } }) => {
-//   return (
-//     <React.Fragment>
-//       <div>ALALAL</div>
-//       <div>
-//         <h3 className="heading-3">Last test result</h3>
-//         <div className="text-center">
-//           <CircleChart
-//             percentage={(points / questions) * 100}
-//             showPercentage={true}
-//           />
-//           <p>
-//             You've scored {points} / {questions} points.
-//           </p>
-//           <Link className="heading-3 link" to={`/quiz/${quizId}`}>
-//             {name}
-//           </Link>
-//         </div>
-//       </div>
-//     </React.Fragment>
-//   );
-// };

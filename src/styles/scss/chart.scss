@@ -24,6 +24,11 @@
     animation: none;
 }
 
+.with-transition {
+    transition: all 0.2s ease-in-out;
+    animation: none;
+}
+
 #stop1 {
     stop-color: getColor(light-purple);
 }
