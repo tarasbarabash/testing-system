@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getQuizesHandler, createQuizHandler, checkQuizResponses } from "../../handlers/api/quiz";
+import { getQuizesHandler, createQuizHandler, checkQuizResponses, quizAttepmt } from "../../handlers/api/quiz";
 import { requireEditorialAccess } from "../../middlewares/auth";
 import Quiz from "../../models/Quiz";
 import ApiError from "../../errors/ApiError";
@@ -55,5 +55,16 @@ quizRouter.post("/:id/check", async (req, res, next) => {
         next(err);
     }
 });
+
+quizRouter.get("/:id/attempt", async (req, res, next) => {
+    const { id } = req.params;
+    const { user } = req;
+    try {
+        const result = await quizAttepmt(user._id, id);
+        res.json(result);
+    } catch (err) {
+        next(err);
+    }
+})
 
 export default quizRouter;

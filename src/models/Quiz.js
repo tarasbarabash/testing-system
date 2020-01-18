@@ -2,6 +2,7 @@ import { model, Schema, Types } from "mongoose";
 import ApiError from "../errors/ApiError";
 import { minQuestionsError } from "../static/errorCodes.json";
 import InvalidValueError from "../errors/InvalidValueError";
+import User from "./User";
 
 const QuizSchema = new Schema({
     name: {
@@ -82,11 +83,28 @@ QuizSchema.statics.getCorrectOptions = function (id) {
 QuizSchema.statics.getQuiz = function (id, user) {
     return this.aggregate([
         { $match: { $or: [{ accessibleTo: { $eq: [] } }, { accessibleTo: { $in: [user.role] } }], _id: new Types.ObjectId(id) } },
-        { $lookup: { from: "questions", localField: "questions", foreignField: "_id", as: "questions" } },
         { $lookup: { from: "users", localField: "creator", foreignField: "_id", as: "creator" } },
         { $unwind: { path: "$creator" } },
-        { $project: { "creator.password": 0, "creator.tokens": 0 } }
+        { $project: { "creator.password": 0, "creator.tokens": 0, "creator.quizzes": 0 } }
     ])
+}
+
+QuizSchema.statics.quizAttempt = async function (quizId, user) {
+    const { total } = await User.getQuizzesResults({ userId: user._id, quizId });
+    const { attempts } = await this.findOne({ _id: quizId });
+    if (total - attempts > 0) throw new ApiError("You have used all the attempts!", 403);
+    const preResult = await User.addQuizResult(user._id, {
+        id: new Types.ObjectId(quizId),
+        result: 0,
+        time: new Date().getTime()
+    });
+    const pipeline = [
+        { $match: { _id: new Types.ObjectId(quizId) } },
+        { $lookup: { from: "questions", localField: "questions", foreignField: "_id", as: "questions" } },
+        { $project: { "questions.options.correct": 0 } }
+    ]
+    const [quiz] = await this.aggregate(pipeline);
+    return { resultId: preResult._id, quiz };
 }
 
 export default model("Quiz", QuizSchema);

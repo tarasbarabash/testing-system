@@ -42,3 +42,7 @@ export const checkQuizResponses = async (userId, quizId, responses) => {
     })
     return { correct: correctCount };
 }
+
+export const quizAttepmt = async (userId, quizId) => {
+    return await Quiz.quizAttempt(quizId, userId);
+}
