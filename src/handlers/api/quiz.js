@@ -30,16 +30,12 @@ export const createQuizHandler = async (newQuiz, user) => {
     }
 }
 
-export const checkQuizResponses = async (userId, quizId, responses) => {
+export const checkQuizResponses = async (userId, quizId, responses, prevResultId) => {
     const correct = await Quiz.getCorrectOptions(quizId);
     if (correct.length <= 0) throw new ApiError("Invalid quiz id", 404, 404);
     const result = correct.map(i => responses[i.question] == i.correctOption);
     const correctCount = result.reduce((a, b) => a + b, 0);
-    const user = await User.addQuizResult(userId, {
-        id: new Types.ObjectId(quizId),
-        result: correctCount,
-        time: new Date().getTime()
-    })
+    const user = await User.updateQuizResult(prevResultId, correctCount, new Date().getTime());
     return { correct: correctCount };
 }
 

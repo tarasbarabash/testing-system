@@ -80,6 +80,13 @@ UserSchema.statics.addQuizResult = async function (id, quiz) {
     return user.save();
 }
 
+UserSchema.statics.updateQuizResult = async function (resultId, correct, time) {
+    const user = await this.update({ "quizzes._id": resultId }, {
+        $set: { "quizzes.$.result": correct, "quizzes.$.time": time }
+    });
+    return user;
+}
+
 UserSchema.statics.getQuizzesResults = async function ({ userId: id, quizId, limit = 10, offset = 0, sort: sortField = "time", dir = -1, name, date }) {
     const match = {};
     if (name) match["name"] = {

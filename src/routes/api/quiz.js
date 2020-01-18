@@ -47,9 +47,9 @@ quizRouter.get("/:id", async (req, res, next) => {
 
 quizRouter.post("/:id/check", async (req, res, next) => {
     const { id } = req.params;
-    const { user, body: selectedOptions } = req;
+    const { user, body: { selectedOptions, prevResultId } } = req;
     try {
-        const result = await checkQuizResponses(user._id, id, selectedOptions);
+        const result = await checkQuizResponses(user._id, id, selectedOptions, prevResultId);
         res.json(result);
     } catch (err) {
         next(err);

@@ -93,7 +93,7 @@ QuizSchema.statics.quizAttempt = async function (quizId, user) {
     const { total } = await User.getQuizzesResults({ userId: user._id, quizId });
     const { attempts } = await this.findOne({ _id: quizId });
     if (total - attempts > 0) throw new ApiError("You have used all the attempts!", 403);
-    const preResult = await User.addQuizResult(user._id, {
+    const { quizzes } = await User.addQuizResult(user._id, {
         id: new Types.ObjectId(quizId),
         result: 0,
         time: new Date().getTime()
@@ -104,7 +104,7 @@ QuizSchema.statics.quizAttempt = async function (quizId, user) {
         { $project: { "questions.options.correct": 0 } }
     ]
     const [quiz] = await this.aggregate(pipeline);
-    return { resultId: preResult._id, quiz };
+    return { resultId: quizzes.slice(-1)[0]._id, quiz };
 }
 
 export default model("Quiz", QuizSchema);
