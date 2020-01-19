@@ -2,6 +2,11 @@
 @import "./typography.scss";
 @import "./mixins.scss";
 
+.ie-flex {
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+}
+
 html,
 body {
   font-size: calc(12pt + 0.1vw);
@@ -47,6 +52,19 @@ $out-transition-seconds: 0.2s;
   main {
     flex-grow: 1;
     height: 100%;
+
+    @media (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+      height: initial;
+    }
+
+    @supports (-ms-accelerator:true) {
+      height: unset;
+    }
+
+    @supports (-ms-ime-align:auto) {
+      height: unset;
+    }
   }
 
   header,
@@ -67,8 +85,10 @@ li {
   list-style: none;
 }
 
+.ie-flex,
 #app {
-  min-height: 100%;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -130,16 +150,37 @@ section {
   }
 
   #{&}-group {
-    display: flex;
+    @include flex(row);
     padding: $main-dimen / 2 0;
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
 
     label {
+      flex: none;
       font-weight: 600;
       padding: $main-dimen / 2 0;
       min-width: 120px;
+    }
+
+    &>input,
+    &>textarea {
+      flex: 1 1 auto;
+    }
+
+    .row {
+      flex-wrap: nowrap;
+    }
+
+    .row input,
+    .row textarea {
+      flex: 9;
+      min-width: 0;
+      width: 180px;
+    }
+
+    .row .clear {
+      flex: 1;
     }
 
     input,
@@ -150,9 +191,6 @@ section {
       padding: $main-dimen / 2;
       font-size: 1em;
       font-family: inherit;
-      width: 100%;
-      flex-basis: 340px;
-      flex: 1;
     }
   }
 }

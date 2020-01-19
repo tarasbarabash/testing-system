@@ -14,7 +14,7 @@ const HomePage = props => {
   const onLogin = async e => {
     const i = formRef.current.reportValidity();
     if (!i) return;
-    e.preventDefault();
+    event.preventDefault ? event.preventDefault() : (event.returnValue = false);
     setLoading(true);
     const response = await auth.login({ mail, password });
     setLoading(false);
@@ -43,7 +43,7 @@ const HomePage = props => {
                 <input
                   type="email"
                   onChange={e => setMail(e.target.value)}
-                  placeholder="test@test.com"
+                  placeholder="E-mail"
                   id="mail"
                   value={mail}
                   required
@@ -54,7 +54,7 @@ const HomePage = props => {
                 <input
                   type="password"
                   onChange={e => setPassword(e.target.value)}
-                  placeholder="test"
+                  placeholder="Password"
                   id="password"
                   value={password}
                   required

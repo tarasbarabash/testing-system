@@ -45,7 +45,7 @@ const RegisterPage = props => {
               <input
                 type="text"
                 onChange={e => setUsername(e.target.value)}
-                placeholder="username"
+                placeholder="Name"
                 id="username"
                 value={username}
                 required
@@ -56,7 +56,7 @@ const RegisterPage = props => {
               <input
                 type="email"
                 onChange={e => setMail(e.target.value)}
-                placeholder="test@test.com"
+                placeholder="E-mail"
                 id="mail"
                 value={mail}
                 required
@@ -67,7 +67,7 @@ const RegisterPage = props => {
               <input
                 type="password"
                 onChange={e => setPassword(e.target.value)}
-                placeholder="test"
+                placeholder="Password"
                 id="password"
                 value={password}
                 required

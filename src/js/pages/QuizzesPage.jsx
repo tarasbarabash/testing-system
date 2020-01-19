@@ -76,7 +76,7 @@ const ResultItem = ({
   }
 }) => {
   return (
-    <div className="row">
+    <div className="row item-row">
       <div className="index text-center">{index + 1}.</div>
       <div className="quiz-name">
         <Link className="link heading-3" to={`/quiz/${quizId}`}>

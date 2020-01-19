@@ -37,5 +37,10 @@ footer {
         flex-wrap: wrap;
         flex-shrink: 0;
         flex-grow: 0;
+
+        @media (max-width: 1160px) {
+            width: 100%;
+            flex-basis: auto;
+        }
     }
 }

@@ -174,6 +174,7 @@ const ResponsiveList = ({
                   <input
                     type={inputType}
                     id={name}
+                    min={0}
                     name={name}
                     value={filters[name]}
                     onChange={({ target: { name, value } }) =>
