@@ -14,7 +14,7 @@ const HomePage = props => {
   const onLogin = async e => {
     const i = formRef.current.reportValidity();
     if (!i) return;
-    event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+    e.preventDefault();
     setLoading(true);
     const response = await auth.login({ mail, password });
     setLoading(false);

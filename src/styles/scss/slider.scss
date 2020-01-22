@@ -34,7 +34,6 @@ div#captioned-gallery {
 figure.slider {
     position: relative;
     width: 100% * $slides-number;
-    font-size: 0;
     animation: 60s slider infinite;
     user-select: none;
 
@@ -51,12 +50,25 @@ figure.slider figure {
     position: inherit;
     justify-content: center;
     align-items: center;
+
+    @media (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        align-items: stretch;
+    }
 }
 
 figure.slider img {
     width: 100%;
     object-fit: scale-down;
     height: 250px;
+
+    @media (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        max-height: 250px;
+        max-width: 250px;
+        align-self: center;
+        height: 100%;
+    }
 }
 
 figure.slider figure figcaption {

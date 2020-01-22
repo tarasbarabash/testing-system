@@ -1,2 +1,2 @@
+import "./js/models/ie-polyfills";
 import "./js/index";
-import "react-app-polyfill/ie11";

@@ -7,8 +7,8 @@
     "build": "webpack --config ./.webpack/webpack.build.config.js"
   },
   "browserslist": [
-    "> 1%",
-    "last 3 version"
+    "defaults",
+    "not dead"
   ],
   "keywords": [],
   "author": "",
@@ -44,12 +44,12 @@
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2",
     "webpack-pwa-manifest": "^4.1.1",
-    "workbox-webpack-plugin": "^4.3.1"
-  },
-  "dependencies": {
+    "workbox-webpack-plugin": "^4.3.1",
     "axios": "^0.19.0",
     "react-app-polyfill": "^1.0.5",
     "react-router-dom": "^5.1.2",
-    "react-router-hash-link": "^1.2.2"
-  }
+    "react-router-hash-link": "^1.2.2",
+    "url-search-params-polyfill": "^7.0.1"
+  },
+  "dependencies": {}
 }
