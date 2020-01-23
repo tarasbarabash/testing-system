@@ -168,7 +168,7 @@ const ResponsiveList = ({
           <h3 className="heading-3">Filters</h3>
           <div className="form">
             {filterFields.map(({ name, displayName, inputType }) => (
-              <div key={name} className="form-group">
+              <div key={name} className={`form-group ${inputType}`}>
                 <label htmlFor={name}>{displayName}:</label>
                 <div className="row">
                   <input

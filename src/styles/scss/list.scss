@@ -193,4 +193,12 @@ main {
 .questions {
     position: sticky;
     top: $main-dimen;
+
+    & .date {
+
+        @media (-ms-high-contrast: none),
+        (-ms-high-contrast: active) {
+            display: none;
+        }
+    }
 }
