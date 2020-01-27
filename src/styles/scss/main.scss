@@ -13,6 +13,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   font-size: calc(12pt + 0.1vw);
