@@ -1,0 +1,50 @@
+@import "./variables.scss";
+
+.row {
+    &>.quiz-name {
+        flex: 3;
+        flex-basis: 100px;
+    }
+
+    .time {
+        text-align: end;
+        width: 100%;
+    }
+
+    &>.result {
+        flex: 2;
+    }
+
+    &>.index {
+        min-width: 50px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 500px) {
+
+        &>.index {
+            min-width: 25px;
+        }
+    }
+
+    &>div {
+        justify-content: center;
+    }
+
+    .points {
+        padding: $main-dimen / 2;
+    }
+
+    .questions-number,
+    .description {
+        margin: $main-dimen / 2;
+    }
+
+    .details {
+        p {
+            margin: $main-dimen / 4;
+        }
+
+        align-items: flex-end;
+    }
+}

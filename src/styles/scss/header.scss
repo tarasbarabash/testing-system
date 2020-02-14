@@ -1,0 +1,290 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+$header-min-height: 127px;
+
+header {
+    @include flex(row);
+    justify-content: center;
+    user-select: none;
+    flex-wrap: wrap;
+    min-height: $header-min-height;
+
+    @media (min-width: 1200px) {
+        justify-content: space-between;
+    }
+
+    @media (max-width: 500px) {
+        .left-section .nav-list {
+            margin-top: 175px;
+        }
+    }
+}
+
+.sections {
+    flex-wrap: wrap;
+    @include flex(row);
+}
+
+.logo-wrapper {
+    padding: $main-dimen;
+    font-size: 15pt !important;
+}
+
+.left-section,
+.right-section {
+    align-items: center;
+    @include flex(row);
+    flex-shrink: 1;
+}
+
+.right-section {
+    justify-content: flex-end;
+    text-align: end;
+}
+
+.nav-list {
+    display: flex;
+    position: relative;
+
+    li {
+        cursor: pointer;
+    }
+
+    li>.dropdown {
+        visibility: collapse;
+    }
+
+    &>li:hover>.dropdown {
+        visibility: visible;
+
+        &>.sub-list {
+            transform: translate(0, 0);
+        }
+    }
+}
+
+$in-transition-seconds: 0.5s;
+$out-transition-seconds: 0.2s;
+$item-min-width: 120px;
+
+.nav-item {
+    min-width: $item-min-width;
+    padding: $main-dimen / 2 $main-dimen / 4;
+    font-weight: 600;
+    position: relative;
+    text-align: center;
+    background: linear-gradient(to right,
+            transparent 50%,
+            getColor(dark-blue) 50%);
+    background-size: 200% 100%;
+    background-position: left bottom;
+    transition: all $in-transition-seconds ease;
+    z-index: 2;
+
+    & a:after {
+        content: "";
+        height: 70%;
+        width: 1px;
+        background: lightgray;
+        position: absolute;
+        right: -1%;
+        top: 15%;
+        vertical-align: middle;
+        transition: all $out-transition-seconds ease;
+        transition-delay: $in-transition-seconds;
+    }
+
+    &:hover a:after {
+        height: 100%;
+        top: 0%;
+        transition-delay: 0s;
+        width: 3px;
+        background: getColor(dark-blue);
+    }
+
+    &:hover {
+        background-position: right bottom;
+        transition-delay: $out-transition-seconds;
+
+        & a {
+            color: white;
+            transition-delay: $out-transition-seconds;
+        }
+    }
+
+    & a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        text-decoration: none;
+        color: black;
+        transition: all $in-transition-seconds ease;
+        transition-delay: $out-transition-seconds;
+    }
+}
+
+.sub-list {
+    & .nav-item {
+        width: 100%;
+    }
+}
+
+.no-effects {
+    font-weight: normal;
+    text-align: end;
+    background: transparent;
+}
+
+.dropdown {
+    overflow: hidden;
+    position: absolute;
+    padding: 0;
+    min-width: 100px;
+    width: 100%;
+    left: 0;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    .sub-list {
+        transform: translate(0, -100%);
+        transition: all 0.5s 0.1s;
+        position: relative;
+        background: black;
+    }
+
+    .nav-item {
+        &:last-of-type {
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+    }
+
+    .nav-item a {
+        color: white;
+    }
+}
+
+.menu-button-container {
+    display: none;
+    height: 100%;
+    width: 30px;
+    padding: $main-dimen;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu-button,
+.menu-button::before,
+.menu-button::after {
+    display: block;
+    background-color: black;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: all 0.5s ease;
+    border-radius: 2px;
+}
+
+.menu-button::before {
+    content: "";
+    margin-top: -8px;
+}
+
+.menu-button::after {
+    content: "";
+    margin-top: 8px;
+}
+
+#menu-toggle:checked+.menu-button-container .menu-button::before {
+    margin-top: 0px;
+    transform: rotate(45deg);
+}
+
+#menu-toggle:checked+.menu-button-container .menu-button {
+    background: rgba(255, 255, 255, 0);
+}
+
+#menu-toggle:checked+.menu-button-container .menu-button::after {
+    margin-top: 0px;
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 980px) {
+    .menu-button-container {
+        display: flex;
+    }
+
+    .left-section .nav-item a {
+        opacity: 0;
+        transition-delay: 0s;
+    }
+
+    .left-section .nav-list {
+        position: absolute;
+        top: 0;
+        margin-top: $header-min-height;
+        margin-left: calc(#{$main-dimen} + 0.5em);
+        width: calc(100% - (#{$main-dimen} * 3));
+        left: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 3px 5px 4px 0px rgba(71, 71, 71, .4);
+    }
+
+    .left-section .nav-item a:after {
+        display: none;
+    }
+
+    #menu-toggle~.nav-list>.nav-item {
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        visibility: collapse;
+    }
+
+    #menu-toggle:checked~.nav-list>.nav-item {
+        height: 2.5em;
+        padding: 0.5em;
+        visibility: visible;
+
+        a {
+            opacity: 1;
+        }
+
+        &:not(:last-of-type) {
+            border-bottom: 1px solid lightgray;
+        }
+    }
+
+    .left-section .nav-list>.nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0.5em 0;
+        width: 100%;
+        color: black;
+        background-color: white;
+    }
+
+    .left-section .nav-list>.nav-item:not(:last-child) {
+        border-bottom: 1px solid lightgray;
+    }
+
+    .left-section .nav-list .nav-item:last-child {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}

@@ -1,0 +1,11 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+
+.dot {
+    height: 15px;
+    width: 15px;
+    @include background-gradient($gradient-direction, dark-blue, light-purple);
+    border-radius: 50%;
+    display: inline-block;
+    margin: $main-dimen / 8;
+}

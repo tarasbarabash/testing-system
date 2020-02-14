@@ -1,0 +1,22 @@
+@import "./variables.scss";
+
+@mixin flex($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+@mixin background-gradient($dir, $from-color, $to-color) {
+  background: linear-gradient($dir, getColor($from-color), getColor($to-color))
+}
+
+@mixin text-gradient($dir, $from-color, $to-color) {
+  background: linear-gradient($dir, getColor($from-color), getColor($to-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin accent($color) {
+  border-radius: 10px;
+  background: getColor($color);
+  box-shadow: 3px 5px 4px 0px rgba(71, 71, 71, .4);
+}

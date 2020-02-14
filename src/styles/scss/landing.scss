@@ -1,0 +1,64 @@
+@import "./variables.scss";
+@import "./typography.scss";
+@import "./mixins.scss";
+
+main {
+  flex-grow: 1;
+
+  @media (-ms-high-contrast: none),
+  (-ms-high-contrast: active) {
+    display: block;
+  }
+}
+
+header,
+main,
+.footer {
+  flex-shrink: 0;
+}
+
+.footer {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  >* {
+    padding: $main-dimen / 2 0;
+  }
+
+  .row {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.footer {
+  @include flex(column);
+  align-items: center;
+  background: rgba(0, 0, 0, .9);
+  color: white;
+  font-size: 0.8em;
+  min-height: 100px;
+  flex-wrap: wrap;
+}
+
+.item {
+  text-align: center;
+  padding: $main-dimen;
+  min-width: 65px;
+}
+
+.footer {
+  padding: $main-dimen;
+
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
