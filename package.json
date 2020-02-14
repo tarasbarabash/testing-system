@@ -1,0 +1,22 @@
+{
+  "name": "testing-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "subpkg install",
+    "build": "subpkg run build",
+    "test": "subpkg run test",
+    "start": "node ./back/out/index.js",
+    "start:dev": "npm run start:dev --prefix ./back"
+  },
+  "subPackages": [
+    "front",
+    "back"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "subpackage": "^1.1.0"
+  }
+}

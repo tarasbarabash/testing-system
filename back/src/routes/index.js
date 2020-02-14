@@ -1,9 +1,12 @@
-import { Router } from "express";
+import express, { Router } from "express";
+import path from "path";
 import apiRouter from "./api";
 import ApiError from "../errors/ApiError";
 
 const router = Router();
 router.use("/api", apiRouter);
+router.use(express.static(path.join(__dirname, "../../../front/build")));
+router.all("*", (req, res) => res.sendFile(path.join(__dirname, "../../../front/build/index.html")));
 
 export const initRoutes = app => {
     app.use(router);

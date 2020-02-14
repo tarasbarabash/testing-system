@@ -5,7 +5,7 @@ import { auth } from "./Auth";
 
 class Request {
     constructor() {
-        this.endpoint = `https://nameless-ridge-74946.herokuapp.com/api`;
+        this.endpoint = `/api`;
     }
 
     async call({ reqMethod, link, data }) {
